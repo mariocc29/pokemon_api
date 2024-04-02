@@ -11,4 +11,28 @@ class ApplicationController < ActionController::API
   def route_not_found
     render json: { code: 404, error: 'Route Not Found' }, status: :not_found
   end
+
+  protected
+
+  # The `authorize_request` method is responsible for authorizing user requests. 
+  # we need to get a token in the header with ‘Authorization’ as a key.
+  def authorize_request
+    token = extract_token_from_header
+
+    begin
+      @decoded = JsonWebTokenService.decode(token)
+      @current_user = User.find(@decoded[:user_id])
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { errors: e.message }, status: :unauthorized
+    rescue JWT::DecodeError => e
+      render json: { errors: e.message }, status: :unauthorized
+    end
+  end
+
+  private
+
+  def extract_token_from_header
+    header = request.headers['Authorization']
+    header.split(' ').last if header.present?
+  end
 end
