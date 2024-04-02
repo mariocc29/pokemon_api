@@ -1,7 +1,10 @@
 require 'swagger_helper'
 
 RSpec.describe Api::V1::PokemonsController, type: :request do
-  let(:expected_response) {
+  let(:user) { create :user }
+  let(:Authorization) { "Bearer #{user.token}" }
+  
+  let(:expected_response) do
     {
       id: pokemon.id,
       name: pokemon.name,
@@ -18,7 +21,7 @@ RSpec.describe Api::V1::PokemonsController, type: :request do
       legendary: pokemon.legendary,
       url: match(/api\/v1\/pokemons\/#{pokemon.id}/)
     }
-  }
+  end
 
   let(:params) do
     {
@@ -55,6 +58,7 @@ RSpec.describe Api::V1::PokemonsController, type: :request do
     post 'Creates a new pokemon' do
       consumes 'application/json'
       produces 'application/json'
+      security [ bearer: [] ]
       parameter name: :pokemon, in: :body, schema: {
         type: :object,
         properties: {
@@ -119,6 +123,7 @@ RSpec.describe Api::V1::PokemonsController, type: :request do
     patch 'Updates a pokemon' do
       consumes 'application/json'
       produces 'application/json'
+      security [ bearer: [] ]
       parameter name: :pokemon, in: :body, schema: {
         type: :object,
         properties: {
@@ -138,11 +143,11 @@ RSpec.describe Api::V1::PokemonsController, type: :request do
         required: %w[ name primary_type total hp attack defense sp_atk sp_def speed generation legendary ]
       }
       response '200', 'Updates the pokemon' do
+        schema '$ref' => '#/components/schemas/pokemon'
         let!(:factory_pokemon) { create :pokemon }
         let(:id) { factory_pokemon.id }
         let(:pokemon) { params }
 
-        schema '$ref' => '#/components/schemas/pokemon'
         run_test! do |response|
           factory_pokemon.reload
 
@@ -164,6 +169,7 @@ RSpec.describe Api::V1::PokemonsController, type: :request do
 
     delete 'Deletes a pokemon' do
       produces 'application/json'
+      security [ bearer: [] ]
       response '204', 'Deletes the pokemon' do
         let!(:pokemon) { create :pokemon }
 

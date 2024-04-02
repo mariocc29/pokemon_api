@@ -9,7 +9,7 @@ module Api
         if user&.authenticate(auth_params[:password])
           token = JsonWebTokenService.encode(user_id: user.id)
           time = Time.now + 24.hours.to_i
-          render json: { token:, exp: time.strftime('%m-%d-%Y %H:%M') }, status: :ok
+          render json: { token:, expires_at: time.strftime('%Y-%m-%d %H:%M') }, status: :ok
         else
           render json: { error: 'unauthorized' }, status: :unauthorized
         end

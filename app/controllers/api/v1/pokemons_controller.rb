@@ -3,6 +3,7 @@
 module Api
   module V1
     class PokemonsController < ApplicationController
+      before_action :authorize_request, except: %i[index show]
       before_action :set_pokemon, only: %i[show update destroy]
 
       # GET /pokemons

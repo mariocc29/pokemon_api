@@ -42,6 +42,7 @@ gem 'dotenv-rails' # Loads environment variables from a .env file into ENV when 
 gem 'rswag-api' # Adds Swagger API documentation to Rails APIs using RSpec.
 gem 'rswag-ui' # Provides a UI for interacting with and testing Rails APIs documented with Swagger.
 gem 'jwt' # Use Json Web Token (JWT) for token based authentication
+gem 'shoulda-matchers', '~> 5.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

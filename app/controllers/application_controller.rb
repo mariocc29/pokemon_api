@@ -18,15 +18,16 @@ class ApplicationController < ActionController::API
   # we need to get a token in the header with ‘Authorization’ as a key.
   def authorize_request
     token = extract_token_from_header
+    
+    return render_unauthorized('Unauthorized') if token.nil?
 
-    begin
-      @decoded = JsonWebTokenService.decode(token)
-      @current_user = User.find(@decoded[:user_id])
-    rescue ActiveRecord::RecordNotFound => e
-      render json: { errors: e.message }, status: :unauthorized
-    rescue JWT::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
-    end
+    decoded = JsonWebTokenService.decode(token)
+
+    return render_unauthorized('Unauthorized') unless decoded
+
+    current_user = User.find(decoded[:user_id])
+
+    return render_unauthorized('Unauthorized') if current_user.nil?
   end
 
   private
@@ -34,5 +35,9 @@ class ApplicationController < ActionController::API
   def extract_token_from_header
     header = request.headers['Authorization']
     header.split(' ').last if header.present?
+  end
+
+  def render_unauthorized(message)
+    render json: { code: 401, error: message }, status: :unauthorized
   end
 end
