@@ -38,7 +38,9 @@ gem 'bootsnap', require: false
 # gem "rack-cors"
 
 # Customization gems for the project
-gem 'dotenv-rails'
+gem 'dotenv-rails' # Loads environment variables from a .env file into ENV when the Rails app initializes.
+gem 'rswag-api' # Adds Swagger API documentation to Rails APIs using RSpec.
+gem 'rswag-ui' # Provides a UI for interacting with and testing Rails APIs documented with Swagger.
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -48,9 +50,9 @@ group :development, :test do
   gem 'byebug' # Debugger for Ruby
   gem 'factory_bot_rails' # Provides support for defining and using factories in RSpec tests
   gem 'faker' # Generates fake data for testing purposes
-  gem 'rack-test' # Add the 'rack/test' gem for testing Rack applications with a simple API.
   gem 'rspec-json_expectations' # Integrate 'rspec/json_expectations' gem for additional JSON-related expectations in RSpec.
   gem 'rspec-rails' # Behavior-driven development for Ruby on Rails applications
+  gem 'rswag-specs' # Provides tools to document APIs with RSpec-like syntax and generate Swagger JSON files.
 end
 
 group :development do

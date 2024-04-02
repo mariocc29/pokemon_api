@@ -1,0 +1,304 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "PokemonApi V1 Docs",
+    "version": "v1"
+  },
+  "components": {
+    "schemas": {
+      "pokemon": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "nullable": false
+          },
+          "primary_type": {
+            "type": "string",
+            "nullable": false
+          },
+          "secondary_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "nullable": false
+          },
+          "hp": {
+            "type": "integer",
+            "nullable": false
+          },
+          "attack": {
+            "type": "integer",
+            "nullable": false
+          },
+          "defense": {
+            "type": "integer",
+            "nullable": false
+          },
+          "sp_atk": {
+            "type": "integer",
+            "nullable": false
+          },
+          "sp_def": {
+            "type": "integer",
+            "nullable": false
+          },
+          "speed": {
+            "type": "integer",
+            "nullable": false
+          },
+          "generation": {
+            "type": "integer",
+            "nullable": false
+          },
+          "legendary": {
+            "type": "boolean",
+            "nullable": false
+          },
+          "url": {
+            "type": "string",
+            "nullable": false
+          }
+        }
+      },
+      "pokemons": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/pokemon"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/pokemons": {
+      "get": {
+        "summary": "Retrieves a list of pokemons",
+        "responses": {
+          "200": {
+            "description": "Returns a list of pokemons",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pokemons"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a new pokemon",
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Creates a new pokemon",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pokemon"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "primary_type": {
+                    "type": "string"
+                  },
+                  "secondary_type": {
+                    "type": "string"
+                  },
+                  "total": {
+                    "type": "integer"
+                  },
+                  "hp": {
+                    "type": "integer"
+                  },
+                  "attack": {
+                    "type": "integer"
+                  },
+                  "defense": {
+                    "type": "integer"
+                  },
+                  "sp_atk": {
+                    "type": "integer"
+                  },
+                  "sp_def": {
+                    "type": "integer"
+                  },
+                  "speed": {
+                    "type": "integer"
+                  },
+                  "generation": {
+                    "type": "integer"
+                  },
+                  "legendary": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "name",
+                  "primary_type",
+                  "total",
+                  "hp",
+                  "attack",
+                  "defense",
+                  "sp_atk",
+                  "sp_def",
+                  "speed",
+                  "generation",
+                  "legendary"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pokemons/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Retrieves a pokemon by id",
+        "responses": {
+          "200": {
+            "description": "Returns a pokemon",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pokemon"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pokemon not found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Updates a pokemon",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Updates the pokemon",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pokemon"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "primary_type": {
+                    "type": "string"
+                  },
+                  "secondary_type": {
+                    "type": "string"
+                  },
+                  "total": {
+                    "type": "integer"
+                  },
+                  "hp": {
+                    "type": "integer"
+                  },
+                  "attack": {
+                    "type": "integer"
+                  },
+                  "defense": {
+                    "type": "integer"
+                  },
+                  "sp_atk": {
+                    "type": "integer"
+                  },
+                  "sp_def": {
+                    "type": "integer"
+                  },
+                  "speed": {
+                    "type": "integer"
+                  },
+                  "generation": {
+                    "type": "integer"
+                  },
+                  "legendary": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "name",
+                  "primary_type",
+                  "total",
+                  "hp",
+                  "attack",
+                  "defense",
+                  "sp_atk",
+                  "sp_def",
+                  "speed",
+                  "generation",
+                  "legendary"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a pokemon",
+        "responses": {
+          "204": {
+            "description": "Deletes the pokemon"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ]
+}
