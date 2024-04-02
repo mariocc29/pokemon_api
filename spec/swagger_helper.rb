@@ -22,6 +22,19 @@ RSpec.configure do |config|
         version: 'v1'
       },
       components: {
+        securitySchemes: {
+          bearer: {
+            in: :header,
+            name: :Authorization,
+            type: :http,
+            scheme: :bearer,
+            required: true,
+            description: 'Client Token',
+            bearerFormat: 'JWT',
+            tokenUrl: ENV.fetch('APP_URL', 'http://localhost') + '/api/v1/auth/login',
+            scopes: {}
+          }
+        },
         schemas: {
           pokemon: {
             type: 'object',

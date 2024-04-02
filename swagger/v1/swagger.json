@@ -5,6 +5,20 @@
     "version": "v1"
   },
   "components": {
+    "securitySchemes": {
+      "bearer": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "http",
+        "scheme": "bearer",
+        "required": true,
+        "description": "Client Token",
+        "bearerFormat": "JWT",
+        "tokenUrl": "http://localhost:3000/api/v1/auth/login",
+        "scopes": {
+        }
+      }
+    },
     "schemas": {
       "pokemon": {
         "type": "object",
@@ -75,6 +89,43 @@
     }
   },
   "paths": {
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "401": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/pokemons": {
       "get": {
         "summary": "Retrieves a list of pokemons",
@@ -93,6 +144,13 @@
       },
       "post": {
         "summary": "Creates a new pokemon",
+        "security": [
+          {
+            "bearer": [
+
+            ]
+          }
+        ],
         "parameters": [
 
         ],
@@ -204,6 +262,13 @@
       },
       "patch": {
         "summary": "Updates a pokemon",
+        "security": [
+          {
+            "bearer": [
+
+            ]
+          }
+        ],
         "parameters": [
 
         ],
@@ -285,6 +350,13 @@
       },
       "delete": {
         "summary": "Deletes a pokemon",
+        "security": [
+          {
+            "bearer": [
+
+            ]
+          }
+        ],
         "responses": {
           "204": {
             "description": "Deletes the pokemon"

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     mount Rswag::Api::Engine => '/docs'
     
     namespace :v1 do
+      post '/auth/login', to: 'authentication#login'
       resources :pokemons
     end
   end
