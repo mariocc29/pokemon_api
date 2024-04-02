@@ -1,4 +1,4 @@
-# Holidays API
+# Pokemon API
 **Petal Solutions Inc. Test Ruby backend**
 
 ### Overview
@@ -16,7 +16,7 @@ The purpose of this application is to connect an APIRestful and get a list of po
 1. To initialize the project, use the following command:
 
 ```bash
-  rails new holidays --api -d postgresql -T
+  rails new pokemon_api --api -d postgresql -T
 ```
 
 ## Technologies
